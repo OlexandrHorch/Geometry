@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Geometry</title>
+</head>
+
+
+<body th:replace="fragments :: body"></body>
+<body>
+
+<table bgcolor="#d4edda" height="260">
+    <tr>
+        <!--Image-->
+        <td valign="top">
+            <a href="https://uk.wikipedia.org/wiki/%D0%A0%D0%BE%D0%BC%D0%B1" target="_blank" title="Wikipedia">
+                <img src="/img/rhombus.png" width="219" height="260" alt="rhombus">
+            </a>
+        </td>
+
+        <!--Message-->
+        <td valign="top">
+            <br>
+            <strong>Дані для розрахунку повинні бути більші нуля!</strong><br>
+            Розрахунок можливо проводити при наявності одного з наступних наборів даних:<br>
+            - сторона, висота<br>
+            - діагональ 1, діагональ 2
+        </td>
+    </tr>
+</table>
+
+<form method="get" action="/rhombus">
+    <div th:if="${rhombus != null}">
+
+        <!--Message-->
+        <br>
+        <div class="alert alert-danger" th:if="${rhombus.getPerimeter() <= 0}">
+            <strong>Необхідні дані для розрахунку відсутні або менші за 0</strong>
+        </div>
+
+        <!--Button for calculation-->
+        <button type="submit" class="btn btn-block btn-info search-button">
+            Розрахувати
+        </button>
+
+        <!--Table with data-->
+        <table>
+            <!--Side-->
+            <tr>
+                <td class="form-control">
+                    <b> Сторона </b>
+                </td>
+                <div th:if="${rhombus.getSide() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="sideRequest"
+                               th:placeholder="${rhombus.getSide()}"
+                               th:value="${rhombus.getSide()}"/>
+                    </td>
+                </div>
+                <div th:if="${rhombus.getSide() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="sideRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Diagonal1-->
+            <tr>
+                <td class="form-control">
+                    <b> Діагональ 1 </b>
+                </td>
+                <div th:if="${rhombus.getDiagonal1() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="diagonal1Request"
+                               th:placeholder="${rhombus.getDiagonal1()}"
+                               th:value="${rhombus.getDiagonal1()}"/>
+                    </td>
+                </div>
+                <div th:if="${rhombus.getDiagonal1() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="diagonal1Request"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Diagonal2-->
+            <tr>
+                <td class="form-control">
+                    <b> Діагональ 2 </b>
+                </td>
+                <div th:if="${rhombus.getDiagonal2() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="diagonal2Request"
+                               th:placeholder="${rhombus.getDiagonal2()}"
+                               th:value="${rhombus.getDiagonal2()}"/>
+                    </td>
+                </div>
+                <div th:if="${rhombus.getDiagonal1() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="diagonal2Request"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Perimeter-->
+            <tr>
+                <td class="form-control">
+                    <b> Периметр </b>
+                </td>
+                <div th:if="${rhombus.getPerimeter() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="perimeterRequest"
+                               th:placeholder="${rhombus.getPerimeter()}"
+                               th:value="${rhombus.getPerimeter()}"/>
+                    </td>
+                </div>
+                <div th:if="${rhombus.getPerimeter() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="perimeterRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Square-->
+            <tr>
+                <td class="form-control">
+                    <b> Площа </b>
+                </td>
+                <div th:if="${rhombus.getSquare() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="squareRequest"
+                               th:placeholder="${rhombus.getSquare()}"
+                               th:value="${rhombus.getSquare()}"/>
+                    </td>
+                </div>
+                <div th:if="${rhombus.getSquare() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="squareRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Height-->
+            <tr>
+                <td class="form-control">
+                    <b> Висота </b>
+                </td>
+                <div th:if="${rhombus.getHeight() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="heightRequest"
+                               th:placeholder="${rhombus.getHeight()}"
+                               th:value="${rhombus.getHeight()}"/>
+                    </td>
+                </div>
+                <div th:if="${rhombus.getHeight() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="heightRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Angle α-->
+            <tr>
+                <td class="form-control">
+                    <b> Кут α </b>
+                </td>
+                <div th:if="${rhombus.getAngleA() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="angleARequest"
+                               th:placeholder="${rhombus.getAngleA()}"
+                               th:value="${rhombus.getAngleA()}"/>
+                    </td>
+                </div>
+                <div th:if="${rhombus.getAngleA() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="angleARequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Angle β-->
+            <tr>
+                <td class="form-control">
+                    <b> Кут β </b>
+                </td>
+                <div th:if="${rhombus.getAngleB() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="angleBRequest"
+                               th:placeholder="${rhombus.getAngleB()}"
+                               th:value="${rhombus.getAngleB()}"/>
+                    </td>
+                </div>
+                <div th:if="${rhombus.getAngleB() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="angleBRequest"/>
+                    </td>
+                </div>
+            </tr>
+        </table>
+    </div>
+
+</form>
+
+<form method="get" action="/rhombus">
+    <!--Button for cleaning-->
+    <button type="submit" class="btn btn-block btn-warning search-button">
+        Очистити
+    </button>
+</form>
+
+</body>
+</html>

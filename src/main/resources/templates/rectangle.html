@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Geometry</title>
+</head>
+
+
+<body th:replace="fragments :: body"></body>
+<body>
+
+<table bgcolor="#d4edda" height="260">
+    <tr>
+        <!--Image-->
+        <td valign="top">
+            <a href="https://uk.wikipedia.org/wiki/%D0%9F%D1%80%D1%8F%D0%BC%D0%BE%D0%BA%D1%83%D1%82%D0%BD%D0%B8%D0%BA" target="_blank" title="Wikipedia">
+                <img src="/img/rectangle.png" width="370" height="260" alt="rectangle">
+            </a>
+        </td>
+
+        <!--Message-->
+        <td valign="top">
+            <br>
+            <strong>Дані для розрахунку повинні бути більші нуля!</strong><br>
+            Розрахунок можливо проводити при наявності одного з наступних наборів даних:<br>
+            - сторона A та сторона B<br>
+            - сторона A та діагональ<br>
+            - периметр та площа<br>
+            - діагональ та кут α<br>
+            - сторона A та кут α<br>
+            - сторона B та кут α
+        </td>
+    </tr>
+</table>
+
+<form method="get" action="/rectangle">
+    <div th:if="${rectangle != null}">
+
+        <!--Message-->
+        <br>
+        <div class="alert alert-danger" th:if="${rectangle.getAngleA() <= 0}">
+            <strong>Необхідні дані для розрахунку відсутні або менші за 0</strong>
+        </div>
+
+        <!--Button for calculation-->
+        <button type="submit" class="btn btn-block btn-info search-button">
+            Розрахувати
+        </button>
+
+        <!--Table with data-->
+        <table>
+            <!--Side A-->
+            <tr>
+                <td class="form-control">
+                    <b> Сторона A </b>
+                </td>
+                <div th:if="${rectangle.getSideA() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="sideARequest"
+                               th:placeholder="${rectangle.getSideA()}"
+                               th:value="${rectangle.getSideA()}"/>
+                    </td>
+                </div>
+                <div th:if="${rectangle.getSideA() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="sideARequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Side B-->
+            <tr>
+                <td class="form-control">
+                    <b> Сторона B </b>
+                </td>
+                <div th:if="${rectangle.getSideB() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="sideBRequest"
+                               th:placeholder="${rectangle.getSideB()}"
+                               th:value="${rectangle.getSideB()}"/>
+                    </td>
+                </div>
+                <div th:if="${rectangle.getSideB() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="sideBRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Diagonal-->
+            <tr>
+                <td class="form-control">
+                    <b> Діагональ </b>
+                </td>
+                <div th:if="${rectangle.getDiagonal() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="diagonalRequest"
+                               th:placeholder="${rectangle.getDiagonal()}"
+                               th:value="${rectangle.getDiagonal()}"/>
+                    </td>
+                </div>
+                <div th:if="${rectangle.getDiagonal() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="diagonalRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Perimeter-->
+            <tr>
+                <td class="form-control">
+                    <b> Периметр </b>
+                </td>
+                <div th:if="${rectangle.getPerimeter() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="perimeterRequest"
+                               th:placeholder="${rectangle.getPerimeter()}"
+                               th:value="${rectangle.getPerimeter()}"/>
+                    </td>
+                </div>
+                <div th:if="${rectangle.getPerimeter() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="perimeterRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Square-->
+            <tr>
+                <td class="form-control">
+                    <b> Площа </b>
+                </td>
+                <div th:if="${rectangle.getSquare() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="squareRequest"
+                               th:placeholder="${rectangle.getSquare()}"
+                               th:value="${rectangle.getSquare()}"/>
+                    </td>
+                </div>
+                <div th:if="${rectangle.getSquare() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="squareRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Angle A-->
+            <tr>
+                <td class="form-control">
+                    <b> Кут α </b>
+                </td>
+                <div th:if="${rectangle.getAngleA() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="angleARequest"
+                               th:placeholder="${rectangle.getAngleA()}"
+                               th:value="${rectangle.getAngleA()}"/>
+                    </td>
+                </div>
+                <div th:if="${rectangle.getAngleA() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="angleARequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Angle B-->
+            <tr>
+                <td class="form-control">
+                    <b> Кут β </b>
+                </td>
+                <div th:if="${rectangle.getAngleB() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="angleBRequest"
+                               th:placeholder="${rectangle.getAngleB()}"
+                               th:value="${rectangle.getAngleB()}"/>
+                    </td>
+                </div>
+                <div th:if="${rectangle.getAngleB() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="angleBetweenBRequest"/>
+                    </td>
+                </div>
+            </tr>
+        </table>
+    </div>
+
+</form>
+
+<form method="get" action="/rectangle">
+    <!--Button for cleaning-->
+    <button type="submit" class="btn btn-block btn-warning search-button">
+        Очистити
+    </button>
+</form>
+
+</body>
+</html>

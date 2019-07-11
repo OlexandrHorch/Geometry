@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Geometry</title>
+</head>
+
+
+<body th:replace="fragments :: body"></body>
+<body>
+
+<table bgcolor="#d4edda" height="260">
+    <tr>
+        <!--Image-->
+        <td valign="top">
+            <a href="https://uk.wikipedia.org/wiki/%D0%9A%D0%BE%D0%BB%D0%BE" target="_blank" title="Wikipedia">
+                <img src="/img/circle.png" width="260" height="260" alt="circle">
+            </a>
+        </td>
+
+        <!--Message-->
+        <td valign="top">
+            <br>
+            <strong>Дані для розрахунку повинні бути більші нуля!</strong><br>
+            Розрахунок можливо проводити при наявності одного з наступних даних:<br>
+            - радіус<br>
+            - діаметр<br>
+            - периметр<br>
+            - площа
+        </td>
+    </tr>
+</table>
+
+<form method="get" action="/circle">
+    <div th:if="${circle != null}">
+
+        <!--Message-->
+        <br>
+        <div class="alert alert-danger" th:if="${circle.getPerimeter() <= 0}">
+            <strong>Необхідні дані для розрахунку відсутні або менші за 0</strong>
+        </div>
+
+        <!--Button for calculation-->
+        <button type="submit" class="btn btn-block btn-info search-button">
+            Розрахувати
+        </button>
+
+        <!--Table with data-->
+        <table>
+            <!--Radius-->
+            <tr>
+                <td class="form-control">
+                    <b> Радіус </b>
+                </td>
+                <div th:if="${circle.getRadius() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="radiusRequest"
+                               th:placeholder="${circle.getRadius()}"
+                               th:value="${circle.getRadius()}"/>
+                    </td>
+                </div>
+                <div th:if="${circle.getRadius() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="radiusRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Diameter-->
+            <tr>
+                <td class="form-control">
+                    <b> Діаметр </b>
+                </td>
+                <div th:if="${circle.getDiameter() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="diameterRequest"
+                               th:placeholder="${circle.getDiameter()}"
+                               th:value="${circle.getDiameter()}"/>
+                    </td>
+                </div>
+                <div th:if="${circle.getDiameter() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="diameterRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Perimeter-->
+            <tr>
+                <td class="form-control">
+                    <b> Периметр </b>
+                </td>
+                <div th:if="${circle.getPerimeter() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="perimeterRequest"
+                               th:placeholder="${circle.getPerimeter()}"
+                               th:value="${circle.getPerimeter()}"/>
+                    </td>
+                </div>
+                <div th:if="${circle.getPerimeter() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="perimeterRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Square-->
+            <tr>
+                <td class="form-control">
+                    <b> Площа </b>
+                </td>
+                <div th:if="${circle.getSquare() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="squareRequest"
+                               th:placeholder="${circle.getSquare()}"
+                               th:value="${circle.getSquare()}"/>
+                    </td>
+                </div>
+                <div th:if="${circle.getSquare() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="squareRequest"/>
+                    </td>
+                </div>
+            </tr>
+        </table>
+    </div>
+
+</form>
+
+<form method="get" action="/circle">
+    <!--Button for cleaning-->
+    <button type="submit" class="btn btn-block btn-warning search-button">
+        Очистити
+    </button>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Geometry</title>
+</head>
+
+
+<body th:replace="fragments :: body"></body>
+<body>
+
+<table bgcolor="#d4edda" height="260">
+    <tr>
+        <!--Image-->
+        <td valign="top">
+            <a href="https://uk.wikipedia.org/wiki/%D0%A2%D1%80%D0%B8%D0%BA%D1%83%D1%82%D0%BD%D0%B8%D0%BA" target="_blank" title="Wikipedia">
+                <img src="/img/triangle.png" width="287" height="260" alt="triangle">
+            </a>
+        </td>
+
+        <!--Message-->
+        <td valign="top">
+            <br>
+            <strong>Дані для розрахунку повинні бути більші нуля!</strong><br>
+            Розрахунок можливо проводити при наявності одного з наступних наборів даних:<br>
+            - сторона A, сторона B, сторона C<br>
+            - сторона A, кут β, кут γ<br>
+            - сторона A, сторона B, кут α
+        </td>
+    </tr>
+</table>
+
+<form method="get" action="/triangle">
+    <div th:if="${triangle != null}">
+
+        <!--Message-->
+        <br>
+        <div class="alert alert-danger" th:if="${triangle.getPerimeter() <= 0}">
+            <strong>Необхідні дані для розрахунку відсутні або менші за 0</strong>
+        </div>
+
+        <!--Button for calculation-->
+        <button type="submit" class="btn btn-block btn-info search-button">
+            Розрахувати
+        </button>
+
+        <!--Table with data-->
+        <table>
+            <!--Side A-->
+            <tr>
+                <td class="form-control">
+                    <b> Сторона A </b>
+                </td>
+                <div th:if="${triangle.getSideA() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="sideARequest"
+                               th:placeholder="${triangle.getSideA()}"
+                               th:value="${triangle.getSideA()}"/>
+                    </td>
+                </div>
+                <div th:if="${triangle.getSideA() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="sideARequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Side B-->
+            <tr>
+                <td class="form-control">
+                    <b> Сторона B </b>
+                </td>
+                <div th:if="${triangle.getSideB() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="sideBRequest"
+                               th:placeholder="${triangle.getSideB()}"
+                               th:value="${triangle.getSideB()}"/>
+                    </td>
+                </div>
+                <div th:if="${triangle.getSideB() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="sideBRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Side C-->
+            <tr>
+                <td class="form-control">
+                    <b> Сторона C </b>
+                </td>
+                <div th:if="${triangle.getSideC() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="sideCRequest"
+                               th:placeholder="${triangle.getSideC()}"
+                               th:value="${triangle.getSideC()}"/>
+                    </td>
+                </div>
+                <div th:if="${triangle.getSideC() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="sideCRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Perimeter-->
+            <tr>
+                <td class="form-control">
+                    <b> Периметр </b>
+                </td>
+                <div th:if="${triangle.getPerimeter() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="perimeterRequest"
+                               th:placeholder="${triangle.getPerimeter()}"
+                               th:value="${triangle.getPerimeter()}"/>
+                    </td>
+                </div>
+                <div th:if="${triangle.getPerimeter() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="perimeterRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Square-->
+            <tr>
+                <td class="form-control">
+                    <b> Площа </b>
+                </td>
+                <div th:if="${triangle.getSquare() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="squareRequest"
+                               th:placeholder="${triangle.getSquare()}"
+                               th:value="${triangle.getSquare()}"/>
+                    </td>
+                </div>
+                <div th:if="${triangle.getSquare() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="squareRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Height-->
+            <tr>
+                <td class="form-control">
+                    <b> Висота </b>
+                </td>
+                <div th:if="${triangle.getHeight() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="heightRequest"
+                               th:placeholder="${triangle.getHeight()}"
+                               th:value="${triangle.getHeight()}"/>
+                    </td>
+                </div>
+                <div th:if="${triangle.getHeight() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="heightRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Bisector-->
+            <tr>
+                <td class="form-control">
+                    <b> Бісектриса (L) </b>
+                </td>
+                <div th:if="${triangle.getBisector() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="bisectorRequest"
+                               th:placeholder="${triangle.getBisector()}"
+                               th:value="${triangle.getBisector()}"/>
+                    </td>
+                </div>
+                <div th:if="${triangle.getBisector() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="bisectorRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Median-->
+            <tr>
+                <td class="form-control">
+                    <b> Медіана (m) </b>
+                </td>
+                <div th:if="${triangle.getMedian() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="medianRequest"
+                               th:placeholder="${triangle.getMedian()}"
+                               th:value="${triangle.getMedian()}"/>
+                    </td>
+                </div>
+                <div th:if="${triangle.getMedian() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="medianRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Angle α-->
+            <tr>
+                <td class="form-control">
+                    <b> Кут α </b>
+                </td>
+                <div th:if="${triangle.getAngleA() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="angleARequest"
+                               th:placeholder="${triangle.getAngleA()}"
+                               th:value="${triangle.getAngleA()}"/>
+                    </td>
+                </div>
+                <div th:if="${triangle.getAngleA() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="angleARequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Angle β-->
+            <tr>
+                <td class="form-control">
+                    <b> Кут β </b>
+                </td>
+                <div th:if="${triangle.getAngleB() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="angleBRequest"
+                               th:placeholder="${triangle.getAngleB()}"
+                               th:value="${triangle.getAngleB()}"/>
+                    </td>
+                </div>
+                <div th:if="${triangle.getAngleB() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="angleBRequest"/>
+                    </td>
+                </div>
+            </tr>
+
+            <!--Angle γ-->
+            <tr>
+                <td class="form-control">
+                    <b> Кут γ </b>
+                </td>
+                <div th:if="${triangle.getAngleC() > 0}">
+                    <td>
+                        <input class="form-control" type="text" name="angleCRequest"
+                               th:placeholder="${triangle.getAngleC()}"
+                               th:value="${triangle.getAngleC()}"/>
+                    </td>
+                </div>
+                <div th:if="${triangle.getAngleC() <= 0}">
+                    <td>
+                        <input class="form-control" type="text" name="angleCRequest"/>
+                    </td>
+                </div>
+            </tr>
+        </table>
+    </div>
+
+</form>
+
+<form method="get" action="/triangle">
+    <!--Button for cleaning-->
+    <button type="submit" class="btn btn-block btn-warning search-button">
+        Очистити
+    </button>
+</form>
+
+</body>
+</html>
